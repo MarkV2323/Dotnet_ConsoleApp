@@ -9,23 +9,24 @@ abstract class Menu(string menuText = "", string menuPrompt = "", string userInp
   {
     int option = 0;
 
-    // headless
-    if (isHeadless)
+    if (!isHeadless)
     {
-      option = System.Convert.ToInt32(userInput);
-      return option;
+      userInput = Console.ReadLine();
+      userInput ??= "";
     }
 
-    // Non headless
-    userInput = Console.ReadLine();
-    userInput ??= "";
     try
     {
       option = System.Convert.ToInt32(userInput);
     }
     catch
     {
-      option = -1;
+      option = 0;
+    }
+
+    if (isHeadless)
+    {
+      Console.WriteLine(option);
     }
     return option;
   }

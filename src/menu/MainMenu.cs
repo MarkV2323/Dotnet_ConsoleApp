@@ -27,7 +27,7 @@ class MainMenu(string userInput = "0", bool isHeadless = false)
       Console.WriteLine(menuText);
 
       // Display Prompt Text
-      Console.Write(menuPrompt + "");
+      Console.Write(menuPrompt);
 
       // Gather user input
       int choice = GetInput();
