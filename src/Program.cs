@@ -5,6 +5,8 @@ class Program
 
   static bool isProgram = true;
 
+  static ConfigManager configManager = new("resource/config.json");
+
   static MainMenu? mainMenu;
 
   static void initMenus()
@@ -14,6 +16,9 @@ class Program
 
   static void Main(string[] args)
   {
+    // Read Config
+    configManager.readConfig();
+
     // Init Menus
     initMenus();
 
