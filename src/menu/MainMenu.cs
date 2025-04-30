@@ -9,7 +9,7 @@ class MainMenu(string userInput = "0", bool isHeadless = false)
   1) Banking   Application
   2) Vechicle  Application
   3) Inventory Application
-  4) Options
+  4) Config
   5) Save
   0) Exit
 ============================================================",
@@ -21,6 +21,8 @@ class MainMenu(string userInput = "0", bool isHeadless = false)
   public override int ExecMenu()
   {
     bool inMenu = true;
+    ConfigMenu? configMenu = new("0", isHeadless: isHeadless);
+
     while (inMenu)
     {
       // Display Menu Text
@@ -48,7 +50,7 @@ class MainMenu(string userInput = "0", bool isHeadless = false)
           inMenu = false;
           break;
         case 4:
-          inMenu = false;
+          configMenu.ExecMenu();
           break;
         case 5:
           inMenu = false;
