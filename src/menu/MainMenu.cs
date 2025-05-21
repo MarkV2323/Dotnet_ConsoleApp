@@ -20,13 +20,17 @@ class MainMenu(string userInput = "0", bool isHeadless = false)
     userInput, isHeadless)
 {
 
-  required public ConfigManager ConfigMan
+  required public ConfigManager MainConfigMan
   { get; set; }
 
   public override int ExecMenu()
   {
     bool inMenu = true;
     ConfigMenu? configMenu = new("0", isHeadless: isHeadless);
+    BankingMenu bankingMenu = new("0", isHeadless: isHeadless)
+    {
+      BankingConfigMan = MainConfigMan
+    };
 
 
     while (inMenu)
@@ -47,7 +51,7 @@ class MainMenu(string userInput = "0", bool isHeadless = false)
           inMenu = false;
           break;
         case 1:
-          inMenu = false;
+          bankingMenu.ExecMenu();
           break;
         case 2:
           inMenu = false;
@@ -59,7 +63,7 @@ class MainMenu(string userInput = "0", bool isHeadless = false)
           configMenu.ExecMenu();
           break;
         case 5:
-          SaveConfig(ConfigMan);
+          SaveConfig(MainConfigMan);
           break;
         default:
           Console.Clear();

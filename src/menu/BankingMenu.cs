@@ -1,15 +1,12 @@
-class ConfigMenu(string userInput = "0", bool isHeadless = false)
+class BankingMenu(string userInput = "0", bool isHeadless = false)
   : Menu(
     @"
 ============================================================
         Please select an option from the list below.
 
-  1) Background - RED
-  2) Background - GREEN
-  3) Background - BLACK
-  4) Foreground - RED
-  5) Foreground - GREEN
-  6) Foreground - BLACK
+  1) Check balance
+  2) Depoist
+  3) Withdraw
   0) Exit
 ============================================================",
     @"
@@ -17,9 +14,20 @@ class ConfigMenu(string userInput = "0", bool isHeadless = false)
     userInput, isHeadless)
 {
 
+  required public ConfigManager BankingConfigMan
+  { get; set; }
   public override int ExecMenu()
   {
     bool inMenu = true;
+    DepoistMenu depoistMenu = new("0", isHeadless: isHeadless)
+    {
+      DepoistConfigMan = BankingConfigMan
+    };
+    WithdrawMenu withdrawMenu = new("0", isHeadless: isHeadless)
+    {
+      WithdrawConfigMan = BankingConfigMan
+    };
+
     while (inMenu)
     {
       // Display Menu Text
@@ -37,22 +45,14 @@ class ConfigMenu(string userInput = "0", bool isHeadless = false)
           inMenu = false;
           break;
         case 1:
-          Console.BackgroundColor = ConsoleColor.Red;
+          Console.WriteLine("");
+          Console.WriteLine("Your balance is " + BankingConfigMan.ConfigObj.BankBalance);
           break;
         case 2:
-          Console.BackgroundColor = ConsoleColor.Green;
+          depoistMenu.ExecMenu();
           break;
         case 3:
-          Console.BackgroundColor = ConsoleColor.Black;
-          break;
-        case 4:
-          Console.ForegroundColor = ConsoleColor.Red;
-          break;
-        case 5:
-          Console.ForegroundColor = ConsoleColor.Green;
-          break;
-        case 6:
-          Console.ForegroundColor = ConsoleColor.Black;
+          withdrawMenu.ExecMenu();
           break;
         default:
           Console.Clear();

@@ -13,7 +13,7 @@ class Program
   {
     mainMenu = new("0", isHeadless: false)
     {
-      ConfigMan = configManager
+      MainConfigMan = configManager
     };
   }
 

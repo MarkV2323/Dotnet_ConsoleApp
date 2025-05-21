@@ -10,11 +10,14 @@ class Config
   { get; set; }
   public ConsoleColor ForegroundColor
   { get; set; }
+  public int BankBalance
+  { get; set; }
 
   public Config()
   {
     ForegroundColor = ConsoleColor.White;
     BackgroundColor = ConsoleColor.Black;
+    BankBalance = 0;
   }
 
   public override string ToString()
