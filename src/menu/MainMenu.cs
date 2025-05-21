@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 class MainMenu(string userInput = "0", bool isHeadless = false)
   : Menu(
     @"
@@ -18,10 +20,14 @@ class MainMenu(string userInput = "0", bool isHeadless = false)
     userInput, isHeadless)
 {
 
+  required public ConfigManager ConfigMan
+  { get; set; }
+
   public override int ExecMenu()
   {
     bool inMenu = true;
     ConfigMenu? configMenu = new("0", isHeadless: isHeadless);
+
 
     while (inMenu)
     {
@@ -53,7 +59,7 @@ class MainMenu(string userInput = "0", bool isHeadless = false)
           configMenu.ExecMenu();
           break;
         case 5:
-          inMenu = false;
+          SaveConfig(ConfigMan);
           break;
         default:
           Console.Clear();
@@ -63,5 +69,13 @@ class MainMenu(string userInput = "0", bool isHeadless = false)
     }
 
     return 0;
+  }
+
+  public static void SaveConfig(ConfigManager cm)
+  {
+    cm.ConfigObj.BackgroundColor = Console.BackgroundColor;
+    cm.ConfigObj.ForegroundColor = Console.ForegroundColor;
+    cm.WriteConfig();
+    Console.WriteLine("Wrote configuration to " + cm.ConfigPath);
   }
 }

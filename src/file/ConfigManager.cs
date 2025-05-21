@@ -22,6 +22,12 @@ class Config
     return JsonSerializer.Serialize(this);
   }
 
+  public void ApplyConfig()
+  {
+    Console.BackgroundColor = BackgroundColor;
+    Console.ForegroundColor = ForegroundColor;
+  }
+
 }
 
 class ConfigManager(string filePath = "")
@@ -31,7 +37,7 @@ class ConfigManager(string filePath = "")
   public Config ConfigObj
   { get; set; } = new();
 
-  public void readConfig()
+  public void ReadConfig()
   {
     if (File.Exists(ConfigPath))
     {
@@ -40,6 +46,7 @@ class ConfigManager(string filePath = "")
       if (tmp != null)
       {
         ConfigObj = tmp;
+        ConfigObj.ApplyConfig();
       }
       else
       {
@@ -57,7 +64,7 @@ class ConfigManager(string filePath = "")
     }
   }
 
-  public void writeConfig()
+  public void WriteConfig()
   {
     string jString = JsonSerializer.Serialize(ConfigObj);
     File.WriteAllText(ConfigPath, jString);

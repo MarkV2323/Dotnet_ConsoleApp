@@ -9,18 +9,21 @@ class Program
 
   static MainMenu? mainMenu;
 
-  static void initMenus()
+  static void InitMenus()
   {
-    mainMenu = new("0", isHeadless: false);
+    mainMenu = new("0", isHeadless: false)
+    {
+      ConfigMan = configManager
+    };
   }
 
   static void Main(string[] args)
   {
     // Read Config
-    configManager.readConfig();
+    configManager.ReadConfig();
 
     // Init Menus
-    initMenus();
+    InitMenus();
 
     // Main Program Loop
     while (isProgram)
